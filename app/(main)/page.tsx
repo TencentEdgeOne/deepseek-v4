@@ -105,8 +105,8 @@ export default function Home() {
   >("initial");
   let [prompt, setPrompt] = useState(DEFAULT_PROMPT);
   let models = [
-    { label: "deepseek-v3.2", value: "deepseek-v3.2" },
     { label: "deepseek-v4", value: "deepseek-v4" },
+    { label: "deepseek-v3.2", value: "deepseek-v3.2" },
   ];
   let [model, setModel] = useState(models[0].value);
   let [generatedCode, setGeneratedCode] = useState("");
