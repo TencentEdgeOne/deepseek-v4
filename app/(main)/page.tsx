@@ -98,8 +98,7 @@ function fixReactImports(code: string): string {
 }
 
 export default function Home() {
-  // const DEFAULT_PROMPT = "Build a calculator app with basic arithmetic operations"
-  const DEFAULT_PROMPT = "Build a very simple web page, as simple as possible"
+  const DEFAULT_PROMPT = "Build a personal homepage"
 
   let [status, setStatus] = useState<
     "initial" | "creating" | "created" | "updating" | "updated"
