@@ -27,7 +27,6 @@
 | 模型                              | 描述                        | 每日免费额度 |
 | :-------------------------------- | :-------------------------- | :----------- |
 | **`@tx/deepseek-ai/deepseek-v4`** | **最新 DeepSeek V4 - 推荐** | 50 次        |
-| `@tx/deepseek-ai/deepseek-v32`    | DeepSeek V3.2               | 50 次        |
 
 了解更多关于边缘 AI：[EdgeOne Pages 边缘 AI 文档](https://pages.edgeone.ai/zh/document/edge-ai)
 

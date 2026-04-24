@@ -11,7 +11,6 @@ import LoadingDots from "../../components/loading-dots";
 // Model mapping: display name -> API model name
 const MODEL_MAP: Record<string, string> = {
   "deepseek-v4": "@tx/deepseek-ai/deepseek-v4",
-  "deepseek-v3.2": "@tx/deepseek-ai/deepseek-v32",
 };
 
 const SYSTEM_PROMPT = `You are an expert frontend React/TypeScript engineer. Follow these rules strictly:
@@ -106,7 +105,6 @@ export default function Home() {
   let [prompt, setPrompt] = useState(DEFAULT_PROMPT);
   let models = [
     { label: "deepseek-v4", value: "deepseek-v4" },
-    { label: "deepseek-v3.2", value: "deepseek-v3.2" },
   ];
   let [model, setModel] = useState(models[0].value);
   let [generatedCode, setGeneratedCode] = useState("");

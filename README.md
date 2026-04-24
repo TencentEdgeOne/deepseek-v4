@@ -27,7 +27,6 @@ More Templates: [EdgeOne Pages](https://edgeone.ai/pages/templates)
 | Model                             | Description                          | Daily Free Quota |
 | :-------------------------------- | :----------------------------------- | :--------------- |
 | **`@tx/deepseek-ai/deepseek-v4`** | **Latest DeepSeek V4 - Recommended** | 50               |
-| `@tx/deepseek-ai/deepseek-v32`    | DeepSeek V3.2                        | 50               |
 
 Learn more about Edge AI: [EdgeOne Pages Edge AI Documentation](https://pages.edgeone.ai/document/edge-ai)
 

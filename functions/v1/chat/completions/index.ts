@@ -132,7 +132,6 @@ export async function onRequest({ request, env }: any) {
       // Fall back to Edge AI
       const allowedModels = [
         '@tx/deepseek-ai/deepseek-v4',
-        '@tx/deepseek-ai/deepseek-v32',
       ];
 
       const requestedModel = model || allowedModels[0];
