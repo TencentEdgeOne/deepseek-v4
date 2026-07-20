@@ -104,7 +104,8 @@ export default function Home() {
   >("initial");
   let [prompt, setPrompt] = useState(DEFAULT_PROMPT);
   let models = [
-    { label: "deepseek-v4", value: "deepseek-v4" },
+    { label: "deepseek-v4-flash", value: "@makers/deepseek-v4-flash" }, // EdgeOne Makers built-in models
+    { label: "deepseek-v4-pro", value: "@makers/deepseek-v4-pro"} // EdgeOne Makers built-in models
   ];
   let [model, setModel] = useState(models[0].value);
   let [generatedCode, setGeneratedCode] = useState("");

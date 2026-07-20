@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL("https://deepseek-v4.edgeone.site/"),
   title: "DeepSeek V4 Playground – AI Code Generator",
-  description: "Experience the latest DeepSeek V4 model - generate small apps with one prompt. Powered by EdgeOne Pages Edge AI.",
+  description: "Experience the latest DeepSeek V4 model - generate small apps with one prompt. Powered by EdgeOne Makers.",
   icons: {
     icon: [
       { url: "/favicon.svg", type: "image/svg+xml" },

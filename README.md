@@ -1,52 +1,49 @@
 # DeepSeek V4 Playground
 
-Experience the latest **DeepSeek V4** model - generate small apps with one prompt. Powered by [EdgeOne Pages Edge AI](https://pages.edgeone.ai/document/edge-ai).
+Experience the latest **DeepSeek V4** model - generate small apps with one prompt. Powered by [EdgeOne Makers Models](https://pages.edgeone.ai/document/models) built-in models.
 
 ## Highlights
 
-- **DeepSeek V4**: The newest and most powerful DeepSeek model with enhanced code generation capabilities
-- **Edge Deployment**: Models deployed on global edge nodes for low-latency responses
-- **Live Preview**: Instant code preview with interactive sandbox
+- **DeepSeek V4**: The latest and most powerful DeepSeek model with enhanced code generation capabilities
+- **Edgeone Makers Models**: EdgeOne Makers Models provides built-in models, and can also host self-paid provider keys to proxy requests, delivering low-latency responses
+- **Live Preview**: Instantly preview code through an interactive sandbox
 
 ## Deploy
 
-[![Deploy with EdgeOne Pages](https://cdnstatic.tencentcs.com/edgeone/pages/deploy.svg)](https://edgeone.ai/pages/new?template=deepseek-v4)
+[![Deploy with EdgeOne Makers](https://cdnstatic.tencentcs.com/edgeone/pages/deploy.svg)](https://edgeone.ai/pages/new?template=deepseek-v4)
 
-Live Demo: https://deepseek-v4.edgeone.site
+Live Preview: https://deepseek-v4.edgeone.site
 
-More Templates: [EdgeOne Pages](https://edgeone.ai/pages/templates)
+More Templates: [EdgeOne Makers](https://pages.edgeone.ai/templates)
+
+## Environment Variables
+
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `AI_GATEWAY_BASE_URL` | Yes | Gateway base URL. When using Edgeone Makers Models, set it to `https://ai-gateway.edgeone.link/v1`. |
+| `AI_GATEWAY_API_KEY` | Yes | Model gateway API key. Use a Edgeone Makers Models API Key, or the key of any OpenAI-compatible provider. |
+
+[About Changing Model Invocations](https://pages.edgeone.ai/document/agents-quick-start#038ab1c2-6bd9-4380-a1ee-191262c5d0ec)
+
 
 ## Tech Stack
 
-- [EdgeOne Pages Edge AI](https://pages.edgeone.ai/document/edge-ai) for code generation using DeepSeek models deployed on global edge nodes
 - [Sandpack](https://sandpack.codesandbox.io/) for the code sandbox
-- Next.js app router with Tailwind
+- Next.js App Router with Tailwind
 
 ## Supported Models
 
-| Model                             | Description                          | Daily Free Quota |
-| :-------------------------------- | :----------------------------------- | :--------------- |
-| **`@tx/deepseek-ai/deepseek-v4`** | **Latest DeepSeek V4 - Recommended** | 50               |
+| Model                              | Description                        |
+| :-------------------------------- | :--------------------------------- |
+| **`@makers/deepseek-v4-flash`** | Better suited for scenarios that prioritize low latency, high concurrency, and cost efficiency. |
+| **`@makers/deepseek-v4-pro`** | Better suited for scenarios that prioritize reasoning capability, higher answer quality, and complex task performance. |
 
-Learn more about Edge AI: [EdgeOne Pages Edge AI Documentation](https://pages.edgeone.ai/document/edge-ai)
 
-## Using Your Own OpenAI API-Compatible Service
+## Get an OpenAI API-Compatible Service
 
-If you need unlimited API calls, you can use any OpenAI API-compatible service (such as DeepSeek, OpenAI, Moonshot, etc.):
+After deployment, this project provides an **OpenAI API-compatible endpoint** that you can configure for use in various AI tools and applications:
 
-1. Get an API key from your preferred provider
-2. Set the following environment variables in your EdgeOne Pages project settings:
-   - `BASE_URL`: The API base URL (e.g., `https://api.deepseek.com/v1`, `https://api.openai.com/v1`)
-   - `API_KEY`: Your API key
-   - `MODEL`: The model to use (e.g., `deepseek-chat`, `gpt-4o`)
+- **Endpoint URL**: `https://<your_domain>/v1/chat/completions`
+- **Compatible Tools**: Any AI tools and applications that support the OpenAI API format
 
-When all three environment variables (`BASE_URL`, `API_KEY`, `MODEL`) are set, the app will use your custom API service directly instead of Edge AI.
-
-## Get Your Own OpenAI API-Compatible Endpoint
-
-Once deployed, this project provides an **OpenAI API-compatible endpoint** that you can integrate with various AI tools and applications:
-
-- **Endpoint**: `https://<your_domain>/v1/chat/completions`
-- **Compatible with**: Any AI tools and applications that support OpenAI API format
-
-Simply configure your AI tools with your deployed endpoint URL to start using the service.
+Simply configure the deployed endpoint URL in your AI tools to start using it.

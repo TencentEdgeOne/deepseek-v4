@@ -7,6 +7,17 @@ const messageItemSchema = z
   })
   .passthrough();
 
+const allowModelList = [
+  '@makers/deepseek-v4-flash',
+  '@makers/deepseek-v4-pro',
+] as const;
+
+function isAllowedModel(
+  model: string | undefined,
+): model is (typeof allowModelList)[number] {
+  return allowModelList.includes(model as (typeof allowModelList)[number]);
+}
+
 const messageSchema = z
   .object({
     messages: z.array(messageItemSchema),
@@ -89,80 +100,43 @@ export async function onRequest({ request, env }: any) {
       return createResponse({ error: 'Invalid user message content' });
     }
 
-    try {
-      // Check if custom OpenAI-compatible API is configured
-      const BASE_URL = env.BASE_URL;
-      const API_KEY = env.API_KEY;
-      const MODEL = env.MODEL;
-
-      if (BASE_URL && API_KEY && MODEL) {
-        // Use custom OpenAI-compatible API
-        const isStream = stream ?? true;
-        const response = await fetch(`${BASE_URL}/chat/completions`, {
-          method: 'POST',
-          headers: {
-            Authorization: `Bearer ${API_KEY}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            ...extraParams,
-            model: MODEL,
-            messages,
-            stream: isStream,
-          }),
-        });
-
-        if (!isStream) {
-          const data = await response.json();
-          return createResponse(data);
-        }
-
-        return new Response(response.body, {
-          headers: {
-            'Content-Type': 'text/event-stream; charset=utf-8',
-            'Cache-Control': 'no-cache',
-            Connection: 'keep-alive',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'POST, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-          },
-        });
-      }
-
-      // Fall back to Edge AI
-      const allowedModels = [
-        '@tx/deepseek-ai/deepseek-v4',
-      ];
-
-      const requestedModel = model || allowedModels[0];
-      const selectedModel = requestedModel;
-      const allowedModelList = Array.from(
-        new Set([...allowedModels])
+    const MODEL = model ?? allowModelList[0];
+    if (!isAllowedModel(MODEL)) {
+      return createResponse(
+        {
+          error: `Unsupported model. Allowed models: ${allowModelList.join(', ')}`,
+        },
+        400,
       );
+    }
 
-      if (!allowedModels.includes(selectedModel)) {
-        return createResponse({
-          error: `Invalid model: ${requestedModel}. Allowed models: ${allowedModelList.join(
-            ', '
-          )}`,
-        });
-      }
+    // Check if custom OpenAI-compatible API is configured
+    const BASE_URL = env.AI_GATEWAY_BASE_URL;
+    const API_KEY = env.AI_GATEWAY_API_KEY;
 
-      // @ts-ignore-next-line
+    if (BASE_URL && API_KEY) {
+      // Use custom OpenAI-compatible API
       const isStream = stream ?? true;
-      // @ts-ignore-next-line
-      const aiResponse = await AI.chatCompletions({
-        ...extraParams,
-        model: selectedModel,
-        messages,
-        stream: isStream,
+      const response = await fetch(`${BASE_URL}/chat/completions`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...extraParams,
+          model: MODEL,
+          messages,
+          stream: isStream,
+        }),
       });
 
       if (!isStream) {
-        return createResponse(aiResponse);
+        const data = await response.json();
+        return createResponse(data);
       }
 
-      return new Response(aiResponse, {
+      return new Response(response.body, {
         headers: {
           'Content-Type': 'text/event-stream; charset=utf-8',
           'Cache-Control': 'no-cache',
@@ -172,8 +146,6 @@ export async function onRequest({ request, env }: any) {
           'Access-Control-Allow-Headers': 'Content-Type, Authorization',
         },
       });
-    } catch (error: any) {
-      return createResponse({ error: error.message });
     }
   } catch (error: any) {
     return createResponse({
